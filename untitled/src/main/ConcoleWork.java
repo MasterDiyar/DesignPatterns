@@ -20,10 +20,12 @@ public class ConcoleWork {
     }
 
     public ConcoleWork(){
+        System.out.println("Which sorter do you prefer? 1.Merge 2.Quick 3.Determine 4.CPP");
+        GetSorter(sc.nextInt());
+        sc.nextLine();
+
         while(!whatHappen.equals("exit")){
-            System.out.println("Which sorter do you prefer? 1.Merge 2.Quick 3.Determine 4.CPP");
-            GetSorter(sc.nextInt());
-            sc.nextLine();
+
 
             System.out.println("What you do?");
             System.out.println("Available commands:");
@@ -69,12 +71,13 @@ public class ConcoleWork {
                 System.out.println("Write path to file");
                 path = sc.nextLine();
                 nowSorter.TXTEnter(path);
-                list = Arrays.stream(nowSorter.List).boxed().toList();
+                //list = Arrays.stream(nowSorter.List).boxed().toList();
                 break;
             case "insert csv":
                 System.out.println("Write path to file");
                 path = sc.nextLine();
-                list = Arrays.stream(nowSorter.List).boxed().toList();
+                nowSorter.CSVEnter(path);
+                //list = Arrays.stream(nowSorter.List).boxed().toList();
                 break;
             case "print list":
                 for (int j : list) {
