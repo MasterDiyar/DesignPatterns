@@ -69,12 +69,13 @@ public class ConcoleWork {
                 System.out.println("Write path to file");
                 path = sc.nextLine();
                 nowSorter.TXTEnter(path);
-                list = Arrays.stream(nowSorter.List).boxed().toList();
+                //list = Arrays.stream(nowSorter.List).boxed().toList();
                 break;
             case "insert csv":
                 System.out.println("Write path to file");
                 path = sc.nextLine();
-                list = Arrays.stream(nowSorter.List).boxed().toList();
+                nowSorter.CSVEnter(path);
+                //list = Arrays.stream(nowSorter.List).boxed().toList();
                 break;
             case "print list":
                 for (int j : list) {
