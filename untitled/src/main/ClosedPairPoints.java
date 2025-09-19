@@ -1,10 +1,10 @@
 package main;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ClosedPairPoints extends Sorter{
+    int recurciveCount = 0, switchCount = 0;
     public String divider;
     private List<Point> points;
     private Point[] closedPoint = new Point[2];
@@ -13,8 +13,7 @@ public class ClosedPairPoints extends Sorter{
     @Override
     public void sort(int[] array) {
         Timer.timeIt("closedPairPoints algorithm work", Timer.TimeUnit.MILLISECONDS,()-> BruteForce(points));
-        closedPoint = Timer.timeIt("closedPair algorithm work", Timer.TimeUnit.MILLISECONDS,()-> BrutalForce(points));
-
+        closedPoint = BrutalForce(points);
     }
 
     @Override
@@ -84,7 +83,7 @@ public class ClosedPairPoints extends Sorter{
         return min;
     }
 
-    private Point[] BrutalForce(List<Point> pts)
+    public Point[] BrutalForce(List<Point> pts)
     {float min = Float.MAX_VALUE;
         for (int i = 0; i < pts.size(); i++)
             for (int j = i + 1; j < pts.size(); j++) {
@@ -96,9 +95,85 @@ public class ClosedPairPoints extends Sorter{
             }
         return closedPoint;
     }
+    public Point[] BrutalForce(Point[] pts)
+    {float min = Float.MAX_VALUE;
+        for (int i = 0; i < pts.length; i++)
+            for (int j = i + 1; j < pts.length; j++) {
+                if (min != Math.min(min, getDistance(pts[i], pts[j]))){
+                    closedPoint[0] = pts[i];
+                    closedPoint[1] = pts[j];
+                }
+                min = Math.min(min, getDistance(pts[i], pts[j]));
+            }
+        return closedPoint;
+    }
+
+    public Point[] createRandomPointList(int size){
+        Point[] randList = new Point[size];
+        Random rand = new Random();
+        for (int i = 0; i < size; i++){
+
+            randList[i] = new Point(rand.nextInt(Integer.MAX_VALUE),rand.nextInt(Integer.MAX_VALUE));
+        }
+        return randList;
+    }
+
+    public Point[] recursive(Point[] points, int rcc) {
+        int n = points.length;
+        switchCount++;
+
+        if (n <= 3) {
+            recurciveCount = rcc;
+            return BrutalForce(Arrays.asList(points));
+        }
+
+        int mid = n / 2;
+        Point midPoint = points[mid];
+
+        Point[] leftPair = recursive(Arrays.copyOfRange(points, 0, mid), rcc++);
+        Point[] rightPair = recursive(Arrays.copyOfRange(points, mid, n), rcc++);
+
+        float dLeft = getDistance(leftPair[0], leftPair[1]);
+        float dRight = getDistance(rightPair[0], rightPair[1]);
+        float d = Math.min(dLeft, dRight);
+
+        Point[] bestPair = (dLeft <= dRight) ? leftPair : rightPair;
+
+        List<Point> strip = new ArrayList<>();
+        for (Point p : points) {
+            if (Math.abs(p.X - midPoint.X) < d) strip.add(p);
+        }
+
+        strip.sort(Comparator.comparingInt(p -> p.Y));
+
+        for (int i = 0; i < strip.size(); i++) {
+            for (int j = i + 1; j < strip.size() && (strip.get(j).Y - strip.get(i).Y) < d; j++) {
+                float dist = getDistance(strip.get(i), strip.get(j));
+                if (dist < d) {
+                    d = dist;
+                    bestPair[0] = strip.get(i);
+                    bestPair[1] = strip.get(j);
+                }
+            }
+        }
+        return bestPair;
+    }
+
+
+    public static boolean equals(Point[] p1, Point[] p2) {
+        boolean[] checkMark = new boolean[2];
+        checkMark[0] = p1[0].X == p2[0].X && p1[0].Y == p2[0].Y;
+        checkMark[1] = p1[1].X == p2[1].X && p1[1].Y == p2[1].Y;
+        return checkMark[0] && checkMark[1];
+    }
 
     public static float getDistance(Point p1, Point p2) {
         return (float) Math.sqrt((p1.X-p2.X)*(p1.X-p2.X)+(p1.Y-p2.Y)*(p1.Y-p2.Y));
+    }
+    public static int getDistanceSquared(Point p1, Point p2) {
+        int dx = p1.X - p2.X;
+        int dy = p1.Y - p2.Y;
+        return dx * dx + dy * dy;
     }
 
     public static int[] stringToIntArray(String[] str, int length) {

@@ -76,6 +76,18 @@ public class Timer {
         }
     }
 
+    public static float timeIn(Runnable task) {
+        long startTime = System.nanoTime();
+
+        task.run();
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+        return (float) duration / 1_000_000.0f;
+    }
+
+
+
 
 }
 
