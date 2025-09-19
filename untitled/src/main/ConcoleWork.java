@@ -20,7 +20,7 @@ public class ConcoleWork {
     }
 
     public ConcoleWork(){
-        System.out.println("Which sorter do you prefer? 1.Merge 2.Quick 3.Determine 4.CPP");
+        System.out.println("Which sorter do you prefer? 1.Merge 2.Quick 3.Determine 4.CPP 5.PrintALl");
         GetSorter(sc.nextInt());
         sc.nextLine();
 
@@ -50,6 +50,20 @@ public class ConcoleWork {
             case 3: nowSorter = new DeterministicSelect();
                 break;
             case 4: nowSorter = new ClosedPairPoints();
+            break;
+            case 5:
+                whatHappen = "exit";
+                nowSorter = new MergeSort();
+                nowSorter.print();
+                nowSorter = new QuickSort();
+                nowSorter.print();
+                nowSorter = new DeterministicSelect();
+                nowSorter.print();
+                nowSorter = new ClosedPairPoints();
+                nowSorter.print();
+                break;
+
+
         }
     }
 
@@ -80,9 +94,10 @@ public class ConcoleWork {
                 //list = Arrays.stream(nowSorter.List).boxed().toList();
                 break;
             case "print list":
-                for (int j : list) {
-                    System.out.print(j + ", ");
+                if (nowSorter instanceof ClosedPairPoints cpp){
+                    Timer.timeIt("cpp test", ()->cpp.recursive(cpp.createRandomPointList(1000), 0));
                 }
+
         }
     }
 
