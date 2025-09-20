@@ -13,10 +13,11 @@ public class DeterministicSelect extends Sorter {
 
     @Override
     public void print() {
-        int[] arr = {25, 30, 3, 7, 26};
+        int[] arr = {25, 30, 3, 7, 26,14,86,28,68,70};
         int k = 2;
         int result = select(arr, 0, arr.length - 1, k);
         System.out.println(k + "-th smallest element is: " + result);
+        Timer.timeIt("Task eqecution",()->result);
     }
 
     @Override
