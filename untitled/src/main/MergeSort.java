@@ -40,12 +40,12 @@ public class MergeSort extends Sorter {
         sorter.sort(arr);
 
         if (sorter.array != null) {
-            System.out.println("Результат MergeSort: " + Arrays.toString(sorter.array));
+            System.out.println("Result MergeSort: " + Arrays.toString(sorter.array));
             System.out.println("Recursion calls: " + sorter.recursionCalls);
             System.out.println("Max depth: " + sorter.maxDepth);
             System.out.println("Comparisons: " + sorter.comparisons);
         } else {
-            System.out.println("Массив ещё не отсортирован. ");
+            System.out.println("Array not sorted. ");
         }
 
         Timer.timeIt("mergesort", () -> sorter.sort(arr));
