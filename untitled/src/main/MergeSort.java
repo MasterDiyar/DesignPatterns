@@ -1,6 +1,8 @@
 package main;
 
+
 import java.util.Arrays;
+import java.util.Random;
 
 public class MergeSort extends Sorter {
     private int[] array;
@@ -29,7 +31,11 @@ public class MergeSort extends Sorter {
     @Override
     public void print() {
         MergeSort sorter = new MergeSort();
-        int[] arr = {42, 5, 9, 1, 55, 12, 7, 19, 100, 3};
+        Random r = new Random();
+        int[] arr = new int[1001];
+        for(int i = 0; i < 1000; i++) {
+            arr[i] = (r.nextInt(4000));
+        }
 
         sorter.sort(arr);
 
