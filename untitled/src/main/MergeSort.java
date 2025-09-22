@@ -39,7 +39,7 @@ public class MergeSort extends Sorter {
             System.out.println("Max depth: " + sorter.maxDepth);
             System.out.println("Comparisons: " + sorter.comparisons);
         } else {
-            System.out.println("Массив ещё не отсортирован.");
+            System.out.println("Массив ещё не отсортирован. ");
         }
 
         Timer.timeIt("mergesort", () -> sorter.sort(arr));
