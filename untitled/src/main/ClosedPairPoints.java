@@ -16,11 +16,14 @@ public class ClosedPairPoints extends Sorter{
 
     @Override
     public void print() {
-        float time = Timer.timeIn(() ->recursive(createRandomPointList(1000), 0));
-        recursive(createRandomPointList(1000), 0);
-        CSVWriter.AppendWriting("CPP recursive",1000, time, recurciveCount, switchCount);
-        time = Timer.timeIn(() ->BrutalForce(createRandomPointList(1000)));
-        CSVWriter.AppendWriting("CPP brutal",1000, time, recurciveCount, switchCount);
+        System.out.println("closed pair points:");
+        float time = Timer.timeIn(() ->recursive(createRandomPointList(10), 0));
+        recursive(createRandomPointList(10), 0);
+        System.out.println("closed pair points in recursive: "+time);
+        //CSVWriter.AppendWriting("CPP recursive",1000, time, recurciveCount, switchCount);
+        time = Timer.timeIn(() ->BrutalForce(createRandomPointList(10)));
+        System.out.println("closed pair points in Brutal Force: "+time);
+        //CSVWriter.AppendWriting("CPP brutal",1000, time, recurciveCount, switchCount);
     }
 
     @Override
